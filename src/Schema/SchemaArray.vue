@@ -1,133 +1,199 @@
 <template>
   <div class="array-type">
-    <el-row type="flex" align="middle">
-      <el-col
-        :span="8"
-        class="col-item name-item col-item-name"
-        :style="tagPaddingLeftStyle"
-      >
-        <el-row type="flex" justify="space-around" align="middle">
-          <el-col :span="2" class="down-style-col">
+
+    <div class="option-formStyle"  v-for="(item,index) in data.items" :key="index">
+      <template v-if="item.type === 'array'">
+          <el-row type="flex" align="middle">
+              <el-col
+                      :span="8"
+                      class="col-item name-item col-item-name"
+                      :style="tagPaddingLeftStyle"
+              >
+                  <el-row type="flex" justify="space-around" align="middle">
+                      <el-col :span="2" class="down-style-col">
             <span
-              v-if="items.type === 'object'"
-              class="down-style"
-              @click="handleClickIcon"
+                    v-if="data.type === 'object'"
+                    class="down-style"
+                    @click="handleClickIcon"
             >
               <i v-if="!showIcon" class="el-icon-caret-bottom icon-object"></i>
               <i v-else class="el-icon-caret-right icon-object"></i>
             </span>
-          </el-col>
-          <el-col :span="20">
-            <el-input disabled value="Items" size="small" />
-          </el-col>
-          <el-col :span="2" style="text-align: center">
-            <el-tooltip placement="top" content="全选">
-              <el-checkbox disabled />
-            </el-tooltip>
-          </el-col>
-        </el-row>
-      </el-col>
+                      </el-col>
+                      <el-col :span="20">
+                          <el-input disabled :value="data.property" size="small" />
+                      </el-col>
+                      <el-col :span="2" style="text-align: center">
+                          <el-tooltip placement="top" content="全选">
+                              <el-checkbox disabled />
+                          </el-tooltip>
+                      </el-col>
+                  </el-row>
+              </el-col>
 
-      <el-col :span="3" class="col-item col-item-type">
-        <el-select
-          :value="items.type"
-          size="small"
-          class="type-select-style"
-          @change="handleChangeType"
-        >
-          <el-option
-            v-for="item in schemaTypes"
-            :key="item"
-            :value="item"
-            :label="item"
-          ></el-option>
-        </el-select>
-      </el-col>
+              <el-col :span="3" class="col-item col-item-type">
+                  <el-select
+                          :value="data.subType"
+                          size="small"
+                          class="type-select-style"
+                          @change="handleChangeType"
+                          disabled
+                  >
+                      <el-option
+                              v-for="item in schemaTypes"
+                              :key="item"
+                              :value="item"
+                              :label="item"
+                      ></el-option>
+                  </el-select>
+              </el-col>
 
-      <el-col v-if="isMock" :span="3" class="col-item col-item-mock">
-        <MockSelect
-          :schema="items"
-          @showEdit="handleAction({ eventType: 'mock-edit' })"
-          @change="handleChangeMock"
-        />
-      </el-col>
+              <el-col v-if="isMock" :span="3" class="col-item col-item-mock">
+                  <MockSelect
+                          :schema="items"
+                          @showEdit="handleAction({ eventType: 'mock-edit' })"
+                          @change="handleChangeMock"
+                  />
+              </el-col>
 
-      <el-col
-        v-if="showTitle"
-        :span="isMock ? 4 : 5"
-        class="col-item col-item-mock"
-      >
-        <el-input v-model="items.title" placeholder="标题" size="small">
-          <i
-            slot="append"
-            class="el-icon-edit"
-            @click="handleAction({ eventType: 'show-edit', field: 'title' })"
-          ></i>
-        </el-input>
-      </el-col>
-      <el-col
-        v-if="!showTitle && showDefaultValue"
-        :span="isMock ? 4 : 5"
-        class="col-item col-item-mock"
-      >
-        <el-input v-model="items.default" placeholder="默认值" size="small">
-          <i
-            slot="append"
-            class="el-icon-edit"
-            @click="handleAction({ eventType: 'show-edit', field: 'default' })"
-          ></i>
-        </el-input>
-      </el-col>
+              <el-col
+                      v-if="showTitle"
+                      :span="isMock ? 4 : 5"
+                      class="col-item col-item-mock"
+              >
+                  <el-input v-model="data.title" placeholder="标题" size="small">
+                      <i
+                              slot="append"
+                              class="el-icon-edit"
+                              @click="handleAction({ eventType: 'show-edit', field: 'title' })"
+                      ></i>
+                  </el-input>
+              </el-col>
+              <el-col v-if="!showTitle && showDefaultValue"
+                      :span="isMock ? 4 : 5"
+                      class="col-item col-item-mock">
+                  <el-input v-model="data.default" placeholder="默认值" size="small">
+                      <i slot="append"
+                              class="el-icon-edit"
+                              @click="handleAction({ eventType: 'show-edit', field: 'default' })"
+                      ></i>
+                  </el-input>
+              </el-col>
+              <el-col :span="isMock ? 2 : 3" class="col-item col-item-setting">
 
-      <el-col :span="isMock ? 4 : 5" class="col-item col-item-desc">
-        <el-input v-model="items.description" placeholder="备注" size="small">
-          <i
-            slot="append"
-            class="el-icon-edit"
-            @click="
-              handleAction({ eventType: 'show-edit', field: 'description' })
-            "
-          ></i>
-        </el-input>
-      </el-col>
-      <el-col :span="isMock ? 2 : 3" class="col-item col-item-setting">
-        <span
-          class="adv-set"
-          @click="
-            handleAction({ eventType: 'setting', schemaType: items.type })
-          "
-        >
-          <el-tooltip placement="top" content="高级设置">
-            <i class="el-icon-setting"></i>
-          </el-tooltip>
-        </span>
-
-        <span
-          v-if="items.type === 'object'"
-          @click="handleAction({ eventType: 'add-field', isChild: true })"
-        >
+                  <span v-if="data.type === 'object'"
+                          @click="handleAction({ eventType: 'add-field', isChild: true })">
           <el-tooltip placement="top" content="添加子节点">
             <i class="el-icon-plus plus"></i>
           </el-tooltip>
         </span>
-      </el-col>
-    </el-row>
-
-    <div class="option-formStyle">
-      <template v-if="items.type === 'array'">
+              </el-col>
+          </el-row>
         <SchemaArray
           :prefix="prefixArray"
-          :data="items"
+          :data="item"
           :is-mock="isMock"
           :show-title="showTitle"
           :show-default-value="showDefaultValue"
           :editor-id="editorId"
         />
       </template>
-      <template v-if="items.type === 'object' && !showIcon">
+      <template v-if="item.type === 'object' && !showIcon">
+          <el-row type="flex" align="middle">
+              <el-col
+                      :span="8"
+                      class="col-item name-item col-item-name"
+                      :style="tagPaddingLeftStyle"
+              >
+                  <el-row type="flex" justify="space-around" align="middle">
+                      <el-col :span="2" class="down-style-col">
+            <span
+                    v-if="data.type === 'object'"
+                    class="down-style"
+                    @click="handleClickIcon"
+            >
+              <i v-if="!showIcon" class="el-icon-caret-bottom icon-object"></i>
+              <i v-else class="el-icon-caret-right icon-object"></i>
+            </span>
+                      </el-col>
+                      <el-col :span="20">
+                          <el-input disabled :value="data.property" size="small" />
+                      </el-col>
+                      <el-col :span="2" style="text-align: center">
+                          <el-tooltip placement="top" content="全选">
+                              <el-checkbox disabled />
+                          </el-tooltip>
+                      </el-col>
+                  </el-row>
+              </el-col>
+
+              <el-col :span="3" class="col-item col-item-type">
+                  <el-select
+                          :value="data.subType"
+                          size="small"
+                          class="type-select-style"
+                          @change="handleChangeType"
+                          disabled
+                  >
+                      <el-option
+                              v-for="item in schemaTypes"
+                              :key="item"
+                              :value="item"
+                              :label="item"
+                      ></el-option>
+                  </el-select>
+              </el-col>
+
+              <el-col v-if="isMock" :span="3" class="col-item col-item-mock">
+                  <MockSelect
+                          :schema="items"
+                          @showEdit="handleAction({ eventType: 'mock-edit' })"
+                          @change="handleChangeMock"
+                  />
+              </el-col>
+
+              <el-col
+                      v-if="showTitle"
+                      :span="isMock ? 4 : 5"
+                      class="col-item col-item-mock"
+              >
+                  <el-input v-model="data.title" placeholder="标题" size="small">
+                      <i
+                              slot="append"
+                              class="el-icon-edit"
+                              @click="handleAction({ eventType: 'show-edit', field: 'title' })"
+                      ></i>
+                  </el-input>
+              </el-col>
+                            <el-col
+                                    v-if="!showTitle && showDefaultValue"
+                                    :span="isMock ? 4 : 5"
+                                    class="col-item col-item-mock"
+                            >
+                                <el-input v-model="data.default" placeholder="默认值" size="small">
+                                    <i
+                                            slot="append"
+                                            class="el-icon-edit"
+                                            @click="handleAction({ eventType: 'show-edit', field: 'default' })"
+                                    ></i>
+                                </el-input>
+                            </el-col>
+
+              <el-col :span="isMock ? 2 : 3" class="col-item col-item-setting">
+
+                  <span
+                          v-if="data.type === 'object'"
+                          @click="handleAction({ eventType: 'add-field', isChild: true })"
+                  >
+          <el-tooltip placement="top" content="添加子节点">
+            <i class="el-icon-plus plus"></i>
+          </el-tooltip>
+        </span>
+              </el-col>
+          </el-row>
         <SchemaObject
           :prefix="nameArray"
-          :data="items"
+          :data="item"
           :is-mock="isMock"
           :show-title="showTitle"
           :show-default-value="showDefaultValue"
@@ -168,8 +234,8 @@ export default {
       default: () => [],
     },
     data: {
-      type: Object,
-      default: () => {},
+        type: Object,
+        default: () => {}
     },
     action: {
       type: Function,

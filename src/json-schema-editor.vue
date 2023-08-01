@@ -23,7 +23,7 @@
               </span>
             </el-col>
             <el-col :span="20">
-              <el-input disabled value="root" size="small" />
+              <el-input disabled value="类型：" size="small" />
             </el-col>
             <el-col :span="2" style="text-align: center">
               <el-tooltip placement="top" content="全选">
@@ -39,7 +39,7 @@
         <el-col :span="3" class="col-item col-item-type">
           <el-select
             :value="schemaData.type"
-            :disabled="schemaData.disabled && !schemaData.canChangeType"
+            :disabled="!schemaData.canChangeType"
             class="type-select-style"
             size="small"
             @change="handleChangeType2($event)"
@@ -59,98 +59,98 @@
             @change="handleChangeMock"
           />
         </el-col>
-        <el-col
-          v-if="showTitle"
-          :span="isMock ? 4 : 5"
-          class="col-item col-item-mock"
-        >
-          <el-input
-            v-model="schemaData.title"
-            placeholder="标题"
-            :disabled="schemaData.disabled"
-            size="small"
-          >
-            <i
-              slot="append"
-              class="el-icon-edit"
-              @click="
-                handleSchemaUpdateEvent({
-                  eventType: 'show-edit',
-                  field: 'title',
-                  prefix: ['properties'],
-                  isRoot: true,
-                })
-              "
-            ></i>
-          </el-input>
-        </el-col>
-        <el-col
-          v-if="!showTitle && showDefaultValue"
-          :span="isMock ? 4 : 5"
-          class="col-item col-item-mock"
-        >
-          <el-input
-            v-model="schemaData.default"
-            placeholder="默认值"
-            size="small"
-            :disabled="
-              schemaData.type === 'object' ||
-              schemaData.type === 'array' ||
-              schemaData.disabled
-            "
-          >
-            <i
-              slot="append"
-              class="el-icon-edit"
-              @click="
-                handleSchemaUpdateEvent({
-                  eventType: 'show-edit',
-                  field: 'default',
-                  prefix: ['properties'],
-                  isRoot: true,
-                })
-              "
-            ></i>
-          </el-input>
-        </el-col>
+<!--        <el-col-->
+<!--          v-if="showTitle"-->
+<!--          :span="isMock ? 4 : 5"-->
+<!--          class="col-item col-item-mock"-->
+<!--        >-->
+<!--          <el-input-->
+<!--            v-model="schemaData.title"-->
+<!--            placeholder="标题"-->
+<!--            :disabled="schemaData.disabled"-->
+<!--            size="small"-->
+<!--          >-->
+<!--            <i-->
+<!--              slot="append"-->
+<!--              class="el-icon-edit"-->
+<!--              @click="-->
+<!--                handleSchemaUpdateEvent({-->
+<!--                  eventType: 'show-edit',-->
+<!--                  field: 'title',-->
+<!--                  prefix: ['properties'],-->
+<!--                  isRoot: true,-->
+<!--                })-->
+<!--              "-->
+<!--            ></i>-->
+<!--          </el-input>-->
+<!--        </el-col>-->
+<!--        <el-col-->
+<!--          v-if="!showTitle && showDefaultValue"-->
+<!--          :span="isMock ? 4 : 5"-->
+<!--          class="col-item col-item-mock"-->
+<!--        >-->
+<!--          <el-input-->
+<!--            v-model="schemaData.default"-->
+<!--            placeholder="默认值"-->
+<!--            size="small"-->
+<!--            :disabled="-->
+<!--              schemaData.type === 'object' ||-->
+<!--              schemaData.type === 'array' ||-->
+<!--              schemaData.disabled-->
+<!--            "-->
+<!--          >-->
+<!--            <i-->
+<!--              slot="append"-->
+<!--              class="el-icon-edit"-->
+<!--              @click="-->
+<!--                handleSchemaUpdateEvent({-->
+<!--                  eventType: 'show-edit',-->
+<!--                  field: 'default',-->
+<!--                  prefix: ['properties'],-->
+<!--                  isRoot: true,-->
+<!--                })-->
+<!--              "-->
+<!--            ></i>-->
+<!--          </el-input>-->
+<!--        </el-col>-->
 
-        <el-col :span="isMock ? 4 : 5" class="col-item col-item-desc">
-          <el-input
-            v-model="schemaData.description"
-            placeholder="备注"
-            size="small"
-            :disabled="schemaData.disabled"
-          >
-            <i
-              slot="append"
-              class="el-icon-edit"
-              @click="
-                handleSchemaUpdateEvent({
-                  eventType: 'show-edit',
-                  field: 'description',
-                  prefix: ['properties'],
-                  isRoot: true,
-                })
-              "
-            ></i>
-          </el-input>
-        </el-col>
-        <el-col :span="2" class="col-item col-item-setting">
-          <span
-            class="adv-set"
-            @click="
-              handleSchemaUpdateEvent({
-                eventType: 'setting',
-                schemaType: schemaData.type,
-                prefix: ['properties'],
-                isRoot: true,
-              })
-            "
-          >
-            <el-tooltip placement="top" content="高级设置">
-              <i class="el-icon-setting"></i>
-            </el-tooltip>
-          </span>
+<!--        <el-col :span="isMock ? 4 : 5" class="col-item col-item-desc">-->
+<!--          <el-input-->
+<!--            v-model="schemaData.description"-->
+<!--            placeholder="备注"-->
+<!--            size="small"-->
+<!--            :disabled="schemaData.disabled"-->
+<!--          >-->
+<!--            <i-->
+<!--              slot="append"-->
+<!--              class="el-icon-edit"-->
+<!--              @click="-->
+<!--                handleSchemaUpdateEvent({-->
+<!--                  eventType: 'show-edit',-->
+<!--                  field: 'description',-->
+<!--                  prefix: ['properties'],-->
+<!--                  isRoot: true,-->
+<!--                })-->
+<!--              "-->
+<!--            ></i>-->
+<!--          </el-input>-->
+<!--        </el-col>-->
+        <el-col  :span="2" class="col-item col-item-setting">
+<!--          <span-->
+<!--            class="adv-set"-->
+<!--            @click="-->
+<!--              handleSchemaUpdateEvent({-->
+<!--                eventType: 'setting',-->
+<!--                schemaType: schemaData.type,-->
+<!--                prefix: ['properties'],-->
+<!--                isRoot: true,-->
+<!--              })-->
+<!--            "-->
+<!--          >-->
+<!--            <el-tooltip placement="top" content="高级设置">-->
+<!--              <i class="el-icon-setting"></i>-->
+<!--            </el-tooltip>-->
+<!--          </span>-->
 
           <span
             v-if="schemaData.type === 'object'"
@@ -391,13 +391,18 @@ export default {
      * @param action 字段和路径
      */
     addFieldAction(opts) {
+        console.log("------------------")
       log(this, opts)
       const { isChild, name, prefix } = opts
       let parentPrefix = ''
       let requirePrefix = []
       if (isChild) {
         const tempArr = [].concat(prefix, name)
-        parentPrefix = tempArr.concat('properties').join(JSONPATH_JOIN_CHAR)
+          if(opts.type ==='array'){
+              parentPrefix = tempArr.concat('items').join(JSONPATH_JOIN_CHAR)
+          }else{
+              parentPrefix = tempArr.concat('properties').join(JSONPATH_JOIN_CHAR)
+          }
         requirePrefix = [...tempArr]
       } else {
         parentPrefix = prefix.join(JSONPATH_JOIN_CHAR)
@@ -408,11 +413,25 @@ export default {
       log('addFieldAction>>>', parentPrefix, '\n\t')
       let newPropertiesData = {}
       const ranName = 'field_' + uuid()
-      const propertiesData = get(this.schemaData, parentPrefix)
-      newPropertiesData = Object.assign({}, propertiesData)
-      newPropertiesData[ranName] = cloneDeep(defaultSchema.string)
-      const cloneSchema = cloneDeep(this.schemaData)
-      set(cloneSchema, parentPrefix, newPropertiesData)
+        let cloneSchema =null;
+        const propertiesData = get(this.schemaData, parentPrefix)
+        if(opts.type ==='array'){
+            if(!propertiesData||propertiesData.length==0){
+                return
+            }
+            let singlePropertiesData =  propertiesData[propertiesData.length-1]
+            propertiesData.push(singlePropertiesData)
+            newPropertiesData = Object.assign({}, propertiesData)
+            newPropertiesData[ranName] = cloneDeep(defaultSchema.string)
+             cloneSchema = cloneDeep(this.schemaData)
+        }else{
+            newPropertiesData = Object.assign({}, propertiesData)
+            newPropertiesData[ranName] = cloneDeep(defaultSchema.string)
+             cloneSchema = cloneDeep(this.schemaData)
+        }
+
+        set(cloneSchema, parentPrefix, newPropertiesData)
+
 
       // add required
       let pRequiredData = null

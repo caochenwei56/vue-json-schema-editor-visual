@@ -9,7 +9,7 @@
         <el-row type="flex" justify="space-around" align="middle">
           <el-col :span="2" class="down-style-col">
             <span
-              v-if="value.type === 'object'"
+              v-if="value.type === 'object'||value.type === 'array'"
               class="down-style"
               @click="handleClickIcon"
             >
@@ -23,7 +23,7 @@
               class="el-input el-input__inner"
               :class="{ 'is-disabled': value.disabled }"
               :value="name"
-              :disabled="value.disabled"
+              disabled
               @change="handleNameChange"
             />
           </el-col>
@@ -44,7 +44,7 @@
         <el-select
           size="small"
           :value="value.type"
-          :disabled="value.disabled && !value.canChangeType"
+          :disabled="!value.canChangeType"
           class="type-select-style"
           @change="handleChangeType"
         >
@@ -105,34 +105,34 @@
         </el-input>
       </el-col>
 
-      <el-col :span="isMock ? 4 : 5" class="col-item col-item-desc">
-        <el-input
-          v-model="value.description"
-          :disabled="value.disabled"
-          size="small"
-          placeholder="备注"
-        >
-          <i
-            slot="append"
-            class="el-icon-edit"
-            @click="
-              handleAction({ eventType: 'show-edit', field: 'description' })
-            "
-          ></i>
-        </el-input>
-      </el-col>
+<!--      <el-col :span="isMock ? 4 : 5" class="col-item col-item-desc">-->
+<!--        <el-input-->
+<!--          v-model="value.description"-->
+<!--          :disabled="value.disabled"-->
+<!--          size="small"-->
+<!--          placeholder="备注"-->
+<!--        >-->
+<!--          <i-->
+<!--            slot="append"-->
+<!--            class="el-icon-edit"-->
+<!--            @click="-->
+<!--              handleAction({ eventType: 'show-edit', field: 'description' })-->
+<!--            "-->
+<!--          ></i>-->
+<!--        </el-input>-->
+<!--      </el-col>-->
 
       <el-col :span="isMock ? 2 : 3" class="col-item col-item-setting">
-        <span
-          class="adv-set"
-          @click="
-            handleAction({ eventType: 'setting', schemaType: value.type })
-          "
-        >
-          <el-tooltip placement="top" content="高级设置">
-            <i class="el-icon-setting"></i>
-          </el-tooltip>
-        </span>
+<!--        <span-->
+<!--          class="adv-set"-->
+<!--          @click="-->
+<!--            handleAction({ eventType: 'setting', schemaType: value.type })-->
+<!--          "-->
+<!--        >-->
+<!--          <el-tooltip placement="top" content="高级设置">-->
+<!--            <i class="el-icon-setting"></i>-->
+<!--          </el-tooltip>-->
+<!--        </span>-->
         <span
           class="delete-item"
           :class="{ hidden: value.disabled }"
@@ -148,9 +148,9 @@
         />
         <span
           v-if="value.type !== 'object'"
-          @click="handleAction({ eventType: 'add-field', isChild: false })"
+          @click="handleAction({ eventType: 'add-field', isChild: true })"
         >
-          <el-tooltip placement="top" content="添加兄弟节点">
+          <el-tooltip placement="top" content="添加子节点">
             <i class="el-icon-plus plus"></i>
           </el-tooltip>
         </span>
@@ -160,6 +160,7 @@
       <!-- {mapping(prefixArray, value, showEdit, showAdv)} -->
       <template v-if="value.type === 'array'">
         <schema-array
+           v-show="showIcon"
           :prefix="prefixArray"
           :data="value"
           :is-mock="isMock"
@@ -168,8 +169,9 @@
           :editor-id="editorId"
         />
       </template>
-      <template v-if="value.type === 'object' && showIcon">
+      <template v-if="value.type === 'object'">
         <schema-object
+          v-show="showIcon"
           :prefix="nameArray"
           :data="value"
           :is-mock="isMock"
@@ -257,6 +259,7 @@ export default {
     },
 
     handleAction(options) {
+        options.type = this.data.properties[this.name].type
       const { prefix, name } = this
       this.$jsEditorEvent.emit(`schema-update-${this.editorId}`, {
         eventType: 'add-field',
