@@ -52,8 +52,7 @@
                   <MockSelect
                           :schema="items"
                           @showEdit="handleAction({ eventType: 'mock-edit' })"
-                          @change="handleChangeMock"
-                  />
+                          @change="handleChangeMock"/>
               </el-col>
 
               <el-col
