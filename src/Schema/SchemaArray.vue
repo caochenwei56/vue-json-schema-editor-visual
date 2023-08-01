@@ -69,7 +69,7 @@
                       ></i>
                   </el-input>
               </el-col>
-              <el-col v-if="!showTitle && showDefaultValue"
+              <el-col v-if="!showTitle && showDefaultValue && data.subType != 'object'"
                       :span="isMock ? 4 : 5"
                       class="col-item col-item-mock">
                   <el-input v-model="data.default" placeholder="默认值" size="small">
