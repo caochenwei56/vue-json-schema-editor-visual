@@ -57,7 +57,7 @@ export default {
                                         title: "title",
                                         label: "父类型",
                                         property: 'superType',
-                                        subType: "String",
+                                        subType: "string",
 
                                     },
                                     subTypes: {
@@ -65,7 +65,7 @@ export default {
                                         title: "title",
                                         label: "子类型",
                                         property: 'subType',
-                                        subType: "String",
+                                        subType: "string",
                                     },
                                     relationshipAttributeDefs: {
                                         type: 'array',
@@ -82,12 +82,12 @@ export default {
                                                 label: "关系属性定义",
                                                 properties: {
                                                     relationshipTypeName: {
-                                                        type: 'String',
+                                                        type: 'string',
                                                         title: "title",
                                                         label: "关系类型名称",
                                                     },
                                                     isLegacyAttribute: {
-                                                        type: 'String',
+                                                        type: 'string',
                                                         title: "title",
                                                         label: "是否遗留属性",
                                                     },

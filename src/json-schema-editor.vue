@@ -13,7 +13,7 @@
         <div class="json-schema-vue-editor">
             <el-row type="flex" align="middle">
                 <div>
-                    <el-select v-model="typeDefModel" multiple placeholder="请选择" @change="handleChange">
+                    <el-select v-model="typeDefModel" placeholder="请选择" @change="handleChange">
                         <el-option
                                 v-for="item in typeDefList"
                                 :key="item.value"
@@ -32,7 +32,7 @@
 
             </el-row>
             <schema-json
-                    v-if="typeDefModel.length>0"
+                    v-if="typeDefModel"
                     :data="schemaData"
                     :is-mock="isMock"
                     :show-title="showTitle"
@@ -51,8 +51,8 @@
                     :init-data="basicModalData"
             />
             <StringDialog
-                    :visible.sync="settingDialogVisible.string"
-                    :init-data="settingModalData"
+                    :visible.sync="stringDialogVisible"
+                    :init-data="stringModalData"
             />
             <NumberDialog
                     :visible.sync="settingDialogVisible.number"
@@ -177,6 +177,8 @@ export default {
             booleanModalData: {title: '', value: ''},
             arrayDialog4StringVisible: false,
             arrayModal4StringData: {title: '', value: ''},
+            stringDialogVisible: false,
+            stringModalData: {title: '', value: ''},
             settingDialogVisible: visibleObj,
             settingModalData: {},
         }
@@ -462,7 +464,7 @@ export default {
                 return
             }
 
-            if (parentData.type === 'array' && parentData === 'string') {
+            if (parentData.type === 'array' && parentData.subType === 'string') {
                 this.arrayDialog4StringVisible = true
                 Object.assign(this.arrayModal4StringData, {
                     title:
@@ -473,12 +475,23 @@ export default {
                 })
             }
 
-            if (parentData.subType === 'boolean') {
+            if (parentData.type === 'boolean' || parentData.subType === 'boolean') {
                 this.booleanDialogVisible = true
                 Object.assign(this.booleanModalData, {
                     title:
                         field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
-                    value: parentData[field],
+                    default: parentData[field],
+                    editorId: this.editorId,
+                    ...opts,
+                })
+                return;
+            }
+            if(parentData.type === 'string') {
+                this.stringDialogVisible = true
+                Object.assign(this.stringModalData, {
+                    title:
+                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                    default: parentData[field],
                     editorId: this.editorId,
                     ...opts,
                 })
@@ -580,27 +593,21 @@ export default {
                 title: "title",
                 properties: {}
             }
-            if (e.indexOf(0) > -1) {
+            if (e == 0) {
                 schema.properties["enumDefs"] = defaultInitSchemaData["enumDefs"]
-            }
-            if (e.indexOf(1) > -1) {
+            }else if (e == 1) {
                 schema.properties["structDefs"] = defaultInitSchemaData["structDefs"]
-            }
-            if (e.indexOf(2) > -1) {
+            }else if (e == 2) {
                 schema.properties["classificationDefs"] = defaultInitSchemaData["classificationDefs"]
-            }
-            if (e.indexOf(3) > -1) {
-
+            }else if (e == 3) {
                 schema.properties["entityDefs"] = defaultInitSchemaData["entityDefs"]
-            }
-            if (e.indexOf(4) > -1) {
+            }else if (e == 4) {
                 schema.properties["relationshipDefs"] = defaultInitSchemaData["relationshipDefs"]
-            }
-            if (e.indexOf(5) > -1) {
+            }else if (e == 5) {
                 schema.properties["businessMetadataDefs"] = defaultInitSchemaData["businessMetadataDefs"]
             }
             this.schemaData = schema
-            console.log("handleChange:", e)
+            
         }
     },
 }
