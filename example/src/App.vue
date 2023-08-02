@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <h1>vue-json-schema-editor-visual example</h1>
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>vue-json-scheisual example</h1>
+    <HelloWorld msg="Welcome 111tq111o Your Vue.js App" />
 
     <div style="margin-top: 120px">
       更多 demo 见：

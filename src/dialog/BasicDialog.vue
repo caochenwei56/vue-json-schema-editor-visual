@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      dialogVisible: false,
+      dialogVisible: this.visible,
       data: '',
     }
   },

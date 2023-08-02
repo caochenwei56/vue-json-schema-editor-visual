@@ -4,6 +4,7 @@
     width="600px"
     v-bind="$attrs"
     v-on="$listeners"
+    :visible.sync="visible"
     @open="onOpen"
     @close="onClose"
   >
@@ -36,7 +37,10 @@ import { getValidFormVal } from '../utils'
 export default {
   name: 'BooleanDialog',
   inheritAttrs: false,
-  props: { initData: { type: Object, default: () => ({}) } },
+  props: {
+      initData: { type: Object, default: () => ({}) },
+      visible: { type: Boolean, default: false },
+  },
 
   data() {
     return {

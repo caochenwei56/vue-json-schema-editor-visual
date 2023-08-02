@@ -9,7 +9,7 @@
         <el-row type="flex" justify="space-around" align="middle">
           <el-col :span="2" class="down-style-col">
             <span
-              v-if="value.type === 'object'||value.type === 'array'"
+              v-if="value.type === 'object' || (value.type === 'array'&&(value.subType === 'array'||value.subType==='object'))"
               class="down-style"
               @click="handleClickIcon"
             >
@@ -22,7 +22,7 @@
               size="small"
               class="el-input el-input__inner"
               :class="{ 'is-disabled': value.disabled }"
-              :value="name"
+              :value="value.label"
               disabled
               @change="handleNameChange"
             />
@@ -30,9 +30,7 @@
           <el-col :span="2" style="text-align: center">
             <el-tooltip placement="top" content="是否必须">
               <el-checkbox
-                :checked="
-                  (data.required && data.required.indexOf(name) != -1) || false
-                "
+                :checked="(data.required && data.required.indexOf(name) != -1) || false"
                 @change="handleEnableRequire"
               ></el-checkbox>
             </el-tooltip>
@@ -85,55 +83,25 @@
       </el-col>
       <!-- 默认值输入框 -->
       <el-col
-        v-if="!showTitle && showDefaultValue"
+        v-if="!showTitle && showDefaultValue && value.subType!='object'"
         :span="isMock ? 4 : 5"
         class="col-item col-item-mock"
       >
-        <el-input
-          v-model.trim="value.default"
-          placeholder="默认值"
-          size="small"
-          :disabled="
-            value.type === 'object' || value.type === 'array' || value.disabled
-          "
-        >
-          <i
-            slot="append"
-            class="el-icon-edit"
-            @click="handleAction({ eventType: 'show-edit', field: 'default' })"
-          ></i>
-        </el-input>
+          <div class="cus-label" style="display: flex;justify-content: space-between;align-items: center">
+              <div>{{formatInput(value.default)}}</div>
+              <i
+                      slot="append"
+                      class="el-icon-edit"
+                      @click="handleAction({ eventType: 'show-edit', field: 'default' })"
+              ></i>
+          </div>
       </el-col>
 
-<!--      <el-col :span="isMock ? 4 : 5" class="col-item col-item-desc">-->
-<!--        <el-input-->
-<!--          v-model="value.description"-->
-<!--          :disabled="value.disabled"-->
-<!--          size="small"-->
-<!--          placeholder="备注"-->
-<!--        >-->
-<!--          <i-->
-<!--            slot="append"-->
-<!--            class="el-icon-edit"-->
-<!--            @click="-->
-<!--              handleAction({ eventType: 'show-edit', field: 'description' })-->
-<!--            "-->
-<!--          ></i>-->
-<!--        </el-input>-->
-<!--      </el-col>-->
 
       <el-col :span="isMock ? 2 : 3" class="col-item col-item-setting">
-<!--        <span-->
-<!--          class="adv-set"-->
-<!--          @click="-->
-<!--            handleAction({ eventType: 'setting', schemaType: value.type })-->
-<!--          "-->
-<!--        >-->
-<!--          <el-tooltip placement="top" content="高级设置">-->
-<!--            <i class="el-icon-setting"></i>-->
-<!--          </el-tooltip>-->
-<!--        </span>-->
+
         <span
+                v-if="data.properties[name].deleteFlg"
           class="delete-item"
           :class="{ hidden: value.disabled }"
           @click="handleAction({ eventType: 'delete-field' })"
@@ -147,7 +115,7 @@
           @add-field="handleAction"
         />
         <span
-          v-if="value.type !== 'object'"
+          v-if="data.properties[name].addFlg&& value.type !== 'object'"
           @click="handleAction({ eventType: 'add-field', isChild: true })"
         >
           <el-tooltip placement="top" content="添加子节点">
@@ -158,9 +126,9 @@
     </el-row>
     <div class="option-formStyle">
       <!-- {mapping(prefixArray, value, showEdit, showAdv)} -->
-      <template v-if="value.type === 'array'">
+      <template v-if="value.type === 'array'&& (value.subType ==='object'||value.subType==='array')">
         <schema-array
-           v-show="showIcon"
+          v-show="showIcon"
           :prefix="prefixArray"
           :data="value"
           :is-mock="isMock"
@@ -184,19 +152,19 @@
   </div>
 </template>
 <script>
-import isUndefined from 'lodash/isUndefined'
-import MockSelect from '../MockSelect'
-import DropPlus from './DropPlus'
-import SchemaObject from './SchemaObject'
-import SchemaArray from './SchemaArray'
-import { SCHEMA_TYPE } from '../utils'
+import isUndefined from "lodash/isUndefined";
+import MockSelect from "../MockSelect";
+import DropPlus from "./DropPlus";
+import SchemaObject from "./SchemaObject";
+import SchemaArray from "./SchemaArray";
+import { SCHEMA_TYPE } from "../utils";
 export default {
-  name: 'SchemaItem',
+  name: "SchemaItem",
   components: {
     MockSelect,
     DropPlus,
-    'schema-array': SchemaArray,
-    'schema-object': SchemaObject,
+    "schema-array": SchemaArray,
+    "schema-object": SchemaObject,
   },
   props: {
     isMock: {
@@ -210,11 +178,11 @@ export default {
     showDefaultValue: { type: Boolean, default: false },
     editorId: {
       type: String,
-      default: 'editor_id',
+      default: "editor_id",
     },
     name: {
       type: String,
-      default: '',
+      default: "",
     },
     prefix: {
       type: Array,
@@ -224,6 +192,10 @@ export default {
       type: Object,
       default: () => {},
     },
+      position:{
+          type:Number,
+          default:0
+      },
   },
   data() {
     return {
@@ -231,63 +203,69 @@ export default {
       tagPaddingLeftStyle: {},
       schemaTypes: SCHEMA_TYPE,
       value: this.data.properties[this.name],
-    }
+    };
   },
 
   computed: {
     nameArray() {
-      const prefixArray = [].concat(this.prefix, this.name)
-      return [].concat(prefixArray, 'properties')
+      const prefixArray = [].concat(this.prefix, this.name);
+      return [].concat(prefixArray, "properties");
     },
     prefixArray() {
-      return [].concat(this.prefix, this.name)
+      return [].concat(this.prefix, this.name);
       // return [].concat(this.prefix, 'items')
     },
   },
   beforeMount() {
-    const length = this.prefix.filter((name) => name !== 'properties').length
+    const length = this.prefix.filter((name) => name !== "properties").length;
     this.tagPaddingLeftStyle = {
       paddingLeft: `${20 * (length + 1)}px`,
-    }
+    };
   },
   methods: {
     isUndefined() {
-      return isUndefined
+      return isUndefined;
     },
     handleClickIcon() {
-      this.showIcon = !this.showIcon
+      this.showIcon = !this.showIcon;
     },
 
     handleAction(options) {
-        options.type = this.data.properties[this.name].type
-      const { prefix, name } = this
+        console.log("---------------------")
+      options.type = this.data.properties[this.name].type;
+      const { prefix, name } = this;
       this.$jsEditorEvent.emit(`schema-update-${this.editorId}`, {
-        eventType: 'add-field',
+        eventType: "add-field",
         prefix,
         name,
         ...options,
-      })
+      });
     },
 
     handleNameChange(e) {
       this.handleAction({
-        eventType: 'update-field-name',
+        eventType: "update-field-name",
         value: e.target.value,
-      })
+      });
     },
     handleEnableRequire(e) {
-      const { prefix, name } = this
+      const { prefix, name } = this;
       this.$jsEditorEvent.emit(`schema-update-${this.editorId}`, {
-        eventType: 'toggle-required',
+        eventType: "toggle-required",
         prefix,
         name,
         required: e,
-      })
+      });
     },
     handleChangeMock() {},
     handleChangeType(value) {
-      this.handleAction({ eventType: 'schema-type', value })
+      this.handleAction({ eventType: "schema-type", value });
     },
+      formatInput(value){
+      return value
+      }
+
   },
-}
+};
 </script>
+
