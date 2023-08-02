@@ -3,7 +3,7 @@
         <el-row>
             <el-col :span="6">
                 <el-button size="mini" type="primary" @click="handleToggleSchema"
-                >改变Schema111
+                >改
                 </el-button
                 >
                 <el-button size="mini" type="info" @click="handlePageParams"
@@ -27,6 +27,8 @@
 <script>
 // demo解释器无法兼容 import
 // import { warningToast, deepClone } from '@sinokit/utils';
+
+
 export default {
     data() {
         return {
@@ -43,6 +45,8 @@ export default {
                         label: "实体类型",
                         property: 'entityDef',
                         subType: "object",
+                        deleteFlg: false,
+                        addFlg: true,
                         items: [
                             {
                                 type: 'object',
@@ -69,6 +73,8 @@ export default {
                                         label: "关系属性定义",
                                         property: 'relationshipAttributeDef',
                                         subType: "object",
+                                        deleteFlg: false,
+                                        addFlg: true,
                                         items: [
                                             {
                                                 type: 'object',
@@ -136,6 +142,27 @@ export default {
         this.schemaKey = Date.now()
     },
     methods: {
+        buildClass(data){
+
+            if(data.type === 'object') {
+                let obj ={}
+               let properties =  data.properties
+                for(let key in properties){
+
+                    obj[key] = this.buildClass( properties[key])
+                }
+                return obj
+            }else if(data.type === 'array') {
+                let arr = []
+                data.items.forEach(item => {
+                    arr.push(this.buildClass(item))
+                })
+                return arr
+            }else{
+                return data.default
+            }
+
+        },
         handleToggleSchema() {
             this.schema = this.atlasSchema
             this.schemaKey = Date.now()

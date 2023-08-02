@@ -19,11 +19,100 @@ export const SCHEMA_TYPE = [
   'boolean',
   'integer'
 ];
-export const defaultInitSchemaData = {
-  type: 'object',
-  title: 'title',
-  properties: {}
-};
+export const defaultInitSchemaData =  {
+  entityDefs: {
+    type: "array",
+    title: "title",
+    label: "实体类型",
+    property: 'entityDef',
+    subType: "object",
+    deleteFlg: false,
+    addFlg: true,
+    items: [
+      {
+        type: 'object',
+        title: 'title',
+        properties: {
+          superTypes: {
+            type: 'array',
+            title: "title",
+            label: "父类型",
+            property: 'superType',
+            subType: "String",
+
+          },
+          subTypes: {
+            type: 'array',
+            title: "title",
+            label: "子类型",
+            property: 'subType',
+            subType: "String",
+          },
+          relationshipAttributeDefs: {
+            type: 'array',
+            title: "title",
+            label: "关系属性定义",
+            property: 'relationshipAttributeDef',
+            subType: "object",
+            deleteFlg: false,
+            addFlg: true,
+            items: [
+              {
+                type: 'object',
+                title: "title",
+                label: "关系属性定义",
+                properties: {
+                  relationshipTypeName: {
+                    type: 'String',
+                    title: "title",
+                    label: "关系类型名称",
+                  },
+                  isLegacyAttribute: {
+                    type: 'String',
+                    title: "title",
+                    label: "是否遗留属性",
+                  },
+                }
+
+              }
+            ]
+          },
+        }
+      },
+
+    ]
+  },
+  enumDefs: {
+      type: "array",
+      title: "title",
+      label: "枚举类型",
+      items: []
+  },
+  structDefs: {
+      type: "array",
+      title: "title",
+      label: "结构体类型",
+      items: []
+  },
+  classificationDefs: {
+      type: "array",
+      title: "title",
+      label: "分类类型",
+      items: []
+  },
+  relationshipDefs: {
+      type: "array",
+      title: "title",
+      label: "关系类型",
+      items: []
+  },
+  businessMetadataDefs: {
+      type: "array",
+      title: "title",
+      label: "业务类型",
+      items: []
+  },
+}
 export const defaultSchema = {
   string: {
     type: 'string'
