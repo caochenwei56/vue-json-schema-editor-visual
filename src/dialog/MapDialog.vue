@@ -9,11 +9,13 @@
                     </el-form-item>
                     <div style="height: 200px;overflow-y: auto">
                         <div v-for="(item,index) in formData.data" :key="index">
-                            <el-form-item style="text-align:left" :label="index +''">
-                                <el-input :key="index+'key'" style="width: 300px" v-model="formData.data[index]['key']"></el-input>
-                                 ：
-                                <el-input :key="index+'value'" style="width: 300px" v-model="formData.data[index]['value']"></el-input>
-                                <i @click="handleDelete(index)" style="margin-left: 16px" class="el-icon-delete"></i>
+                            <el-form-item style="text-align:left">
+                                <div class="el-row--flex is-align-middle">
+                                    <el-input :key="index+'key'" style="width: 300px" v-model="formData.data[index]['key']"></el-input>
+                                     ：
+                                    <el-input :key="index+'value'" style="width: 300px" v-model="formData.data[index]['value']"></el-input>
+                                    <i @click="handleDelete(index)" style="margin-left: 16px" class="el-icon-delete"></i>
+                                </div>
                             </el-form-item>
                         </div>
                     </div>

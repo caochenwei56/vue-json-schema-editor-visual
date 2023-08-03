@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="基础设置（数组字段）"
+    :title="initData.title"
     width="700px"
     v-bind="$attrs"
     v-on="$listeners"

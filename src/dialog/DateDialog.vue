@@ -1,7 +1,7 @@
 <template>
     <div>
       <el-dialog
-        :title="formData.title"
+        :title="initData.title"
         width="700px"
         v-bind="$attrs"
         v-on="$listeners"

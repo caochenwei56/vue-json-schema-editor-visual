@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="基础设置（布尔型字段）"
+    :title="initData.title"
     width="600px"
     v-bind="$attrs"
     v-on="$listeners"
@@ -14,7 +14,7 @@
           v-model="formData.default"
           placeholder="请下拉选择"
           clearable
-          :style="{ width: '60%' }"
+          :style="{ width: '100%' }"
         >
           <el-option
             v-for="(item, index) in defaultOptions"

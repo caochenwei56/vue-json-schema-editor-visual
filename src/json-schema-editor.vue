@@ -480,7 +480,7 @@ export default {
                 this.arrayDialog4StringVisible = true
                 Object.assign(this.arrayModal4StringData, {
                     title:
-                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                        field === 'title' ? '标题' : field === 'default' ? `${parentData.label} (数组)` : '描述',
                     value: parentData[field],
                     editorId: this.editorId,
                     ...opts,
@@ -491,7 +491,7 @@ export default {
                 this.booleanDialogVisible = true
                 Object.assign(this.booleanModalData, {
                     title:
-                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                        field === 'title' ? '标题' : field === 'default' ? `${parentData.label} (布尔})` : '描述',
                     value: parentData[field],
                     editorId: this.editorId,
                     ...opts,
@@ -502,7 +502,7 @@ export default {
                 this.stringDialogVisible = true
                 Object.assign(this.stringModalData, {
                     title:
-                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                        field === 'title' ? '标题' : field === 'default' ? `${parentData.label} (字符串)` : '描述',
                     value: parentData[field],
                     editorId: this.editorId,
                     ...opts,
@@ -513,7 +513,7 @@ export default {
                 this.dateDialogVisible = true
                 Object.assign(this.dateModalData, {
                     title:
-                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                        field === 'title' ? '标题' : field === 'default' ? `${parentData.label} (日期)` : '描述',
                     value: parentData[field],
                     editorId: this.editorId,
                     ...opts,
@@ -524,7 +524,7 @@ export default {
                 this.integerDialogVisible = true
                 Object.assign(this.integerModalData, {
                     title:
-                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                        field === 'title' ? '标题' : field === 'default' ? `${parentData.label} (整数)` : '描述',
                     value: parentData[field],
                     editorId: this.editorId,
                     ...opts,
@@ -534,7 +534,7 @@ export default {
             if(parentData.type === 'map') {
                 Object.assign(this.mapModalData, {
                     title:
-                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                        field === 'title' ? '标题' : field === 'default' ? `${parentData.label} (对象)` : '描述',
                     value:  parentData[field],
                     editorId: this.editorId,
                     ...opts,
@@ -555,7 +555,7 @@ export default {
                 console.log('enumModalData---', this.enumModalData)
                 Object.assign(this.enumModalData, {
                     title:
-                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                        field === 'title' ? '标题' : field === 'default' ? `${parentData.label} (枚举)` : '描述',
                     value:  parentData[field],
                     enumList: parentData.enumList,
                     editorId: this.editorId,
@@ -569,19 +569,6 @@ export default {
                 })
                 this.enumDialogVisible = true
 
-                return;
-            }
-            
-
-            if (parentData.subType === '') {
-                this.booleanDialogVisible = true
-                Object.assign(this.booleanModalData, {
-                    title:
-                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
-                    value: parentData[field],
-                    editorId: this.editorId,
-                    ...opts,
-                })
                 return;
             }
 
@@ -703,5 +690,10 @@ export default {
     transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
     width: 100%;
     font-size: 13px;
+}
+.ellipsis {
+    text-overflow :ellipsis; /*让截断的文字显示为点点。还有一个值是clip意截断不显示点点*/
+    white-space :nowrap; /*让文字不换行*/
+    overflow : hidden; /*超出要隐藏*/
 }
 </style>

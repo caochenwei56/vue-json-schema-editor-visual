@@ -86,22 +86,22 @@
         v-if="!showTitle && showDefaultValue && value.subType!='object'"
         :span="isMock ? 4 : 5"
         class="col-item col-item-mock"
+        @click="handleAction({ eventType: 'show-edit', field: 'default' })"
       >
           <div class="cus-label" style="display: flex;justify-content: space-between;align-items: center">
-              <div>{{formatInput(value.default)}}</div>
+              <div class="ellipsis">{{formatInput(value.default)}}</div>
               <i
-                      slot="append"
-                      class="el-icon-edit"
-                      @click="handleAction({ eventType: 'show-edit', field: 'default' })"
+                slot="append"
+                class="el-icon-edit"
               ></i>
           </div>
       </el-col>
 
 
-      <el-col :span="isMock ? 2 : 3" class="col-item col-item-setting">
+      <el-col :span="1" class="col-item col-item-setting">
 
         <span
-                v-if="data.properties[name].deleteFlg"
+          v-if="data.properties[name].deleteFlg"
           class="delete-item"
           :class="{ hidden: value.disabled }"
           @click="handleAction({ eventType: 'delete-field' })"

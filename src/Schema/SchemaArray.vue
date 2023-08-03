@@ -16,7 +16,7 @@
               <el-col :span="2" class="down-style-col">
                 <span class="down-style" @click="handleClickIcon(index)">
                   <i
-                    v-if="!showIcons[index]"
+                    v-if="showIcons[index]"
                     class="el-icon-caret-bottom icon-object"
                   ></i>
                   <i v-else class="el-icon-caret-right icon-object"></i>
@@ -110,7 +110,7 @@
               <el-col :span="2" class="down-style-col">
                 <span class="down-style" @click="handleClickIcon(index)">
                   <i
-                    v-if="!showIcons[index]"
+                    v-if="showIcons[index]"
                     class="el-icon-caret-bottom icon-object"
                   ></i>
                   <i v-else class="el-icon-caret-right icon-object"></i>
@@ -171,26 +171,26 @@
             v-if="!showTitle && showDefaultValue && data.subType != 'object'"
             :span="isMock ? 4 : 5"
             class="col-item col-item-mock"
+            @click="
+              handleAction({ eventType: 'show-edit', field: 'default' })
+            "
           >
             <el-input v-model="data.default" placeholder="默认值" size="small">
               <i
                 slot="append"
                 class="el-icon-edit"
-                @click="
-                  handleAction({ eventType: 'show-edit', field: 'default' })
-                "
               ></i>
             </el-input>
           </el-col>
-            <el-col :span="isMock ? 2 : 3" class="col-item col-item-setting">
+          <el-col :span="1" class="col-item col-item-setting">
             <span
-                    class="delete-item"
-                    :class="{ hidden: data.disabled }"
-                    @click="handleAction({ eventType: 'delete-field',position: index,type:data.type})"
+              class="delete-item"
+              :class="{ hidden: data.disabled }"
+              @click="handleAction({ eventType: 'delete-field',position: index,type:data.type})"
             >
               <i class="el-icon-close close"></i>
             </span>
-            </el-col>
+          </el-col>
         </el-row>
         <SchemaObject
           v-show="showIcons[index]"
