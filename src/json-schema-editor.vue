@@ -53,6 +53,10 @@
                     :visible.sync="stringDialogVisible"
                     :init-data="stringModalData"
             />
+            <DateDialog
+                    :visible.sync="dateDialogVisible"
+                    :init-data="dateModalData"
+            />
             <NumberDialog
                     :visible.sync="settingDialogVisible.number"
                     :init-data="settingModalData"
@@ -91,6 +95,7 @@ import './jsonschema.scss'
 import {
     BasicDialog,
     StringDialog,
+    DateDialog,
     NumberDialog,
     ArrayDialog,
     BooleanDialog,
@@ -118,6 +123,7 @@ export default {
         SchemaJson,
         BasicDialog,
         StringDialog,
+        DateDialog,
         NumberDialog,
         ArrayDialog,
         BooleanDialog,
@@ -178,6 +184,9 @@ export default {
             arrayModal4StringData: {title: '', value: ''},
             stringDialogVisible: false,
             stringModalData: {title: '', value: ''},
+            dateDialogVisible: false,
+            dateModalData: {title: '', value: ''},
+
             settingDialogVisible: visibleObj,
             settingModalData: {},
         }
@@ -474,7 +483,7 @@ export default {
                 })
             }
 
-            if (parentData.type === 'boolean' || parentData.subType === 'boolean') {
+            if (parentData.type === 'boolean') {
                 this.booleanDialogVisible = true
                 Object.assign(this.booleanModalData, {
                     title:
@@ -488,6 +497,17 @@ export default {
             if(parentData.type === 'string') {
                 this.stringDialogVisible = true
                 Object.assign(this.stringModalData, {
+                    title:
+                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                    default: parentData[field],
+                    editorId: this.editorId,
+                    ...opts,
+                })
+                return;
+            }
+            if(parentData.type === 'date') {
+                this.dateDialogVisible = true
+                Object.assign(this.dateModalData, {
                     title:
                         field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
                     default: parentData[field],

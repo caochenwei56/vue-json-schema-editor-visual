@@ -41,7 +41,6 @@
 import { getValidFormVal } from '../utils'
 export default {
   name: 'StringDialog',
-  inheritAttrs: false,
   props: {
       initData: { type: Object, default: () => ({}) },
       visible: { type: Boolean, default: false },
