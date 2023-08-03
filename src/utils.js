@@ -270,6 +270,7 @@ export const defaultInitSchemaData = {
         label: "枚举类型",
         property: 'enumDef',
         subType: "object",
+        deleteFlg: false,
         addFlg: true,
         items: [
             {
@@ -378,6 +379,8 @@ export const defaultInitSchemaData = {
         label: "结构体类型",
         property: 'structDef',
         subType: "object",
+        deleteFlg: false,
+        addFlg: true,
         items: [{
             type: 'object',
             title: 'title',
@@ -572,6 +575,8 @@ export const defaultInitSchemaData = {
         label: "分类类型",
         property: 'classificationDef',
         subType: "object",
+        deleteFlg: false,
+        addFlg: true,
         items: [
             {
                 type: 'object',
@@ -1089,6 +1094,8 @@ export const defaultInitSchemaData = {
         label: "业务类型",
         property: 'businessMetadataDef',
         subType: "object",
+        deleteFlg: false,
+        addFlg: true,
         items: [{
             type: 'object',
             title: 'title',
