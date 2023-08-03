@@ -204,8 +204,9 @@ export default {
             this.schema = cloneSchema
             this.schemaKey = Date.now() + ''
         },
-        onSchemaChange(v) {
+        onSchemaChange(v, json) {
             this.schemaJsonString = JSON.stringify(v, null, 2)
+            console.log('json---', JSON.stringify(json, null, 2))
         },
     },
 }

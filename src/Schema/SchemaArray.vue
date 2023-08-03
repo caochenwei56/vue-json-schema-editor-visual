@@ -80,11 +80,11 @@
           >
             <el-input v-model="data.default" placeholder="默认值" size="small">
               <i
-                slot="append"
-                class="el-icon-edit"
                 @click="
                   handleAction({ eventType: 'show-edit', field: 'default' })
                 "
+                slot="append"
+                class="el-icon-edit"
               ></i>
             </el-input>
           </el-col>
@@ -171,12 +171,12 @@
             v-if="!showTitle && showDefaultValue && data.subType != 'object'"
             :span="isMock ? 4 : 5"
             class="col-item col-item-mock"
-            @click="
-              handleAction({ eventType: 'show-edit', field: 'default' })
-            "
           >
             <el-input v-model="data.default" placeholder="默认值" size="small">
               <i
+                @click="
+                  handleAction({ eventType: 'show-edit', field: 'default' })
+                "
                 slot="append"
                 class="el-icon-edit"
               ></i>

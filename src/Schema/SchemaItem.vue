@@ -86,11 +86,11 @@
         v-if="!showTitle && showDefaultValue && value.subType!='object'"
         :span="isMock ? 4 : 5"
         class="col-item col-item-mock"
-        @click="handleAction({ eventType: 'show-edit', field: 'default' })"
       >
           <div class="cus-label" style="display: flex;justify-content: space-between;align-items: center">
               <div class="ellipsis">{{formatInput(value.default)}}</div>
               <i
+                @click="handleAction({ eventType: 'show-edit', field: 'default' })"
                 slot="append"
                 class="el-icon-edit"
               ></i>

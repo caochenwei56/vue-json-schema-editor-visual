@@ -1,78 +1,32 @@
 <template>
     <div>
-        <el-button
-                v-if="showRaw"
-                type="primary"
-                size="mini"
-                style="margin-bottom: 10px"
-                @click="handleReqBodyRaw"
-        >RAW查看
-        </el-button
-        >
+        <el-button v-if="showRaw" type="primary" size="mini" style="margin-bottom: 10px" @click="handleReqBodyRaw">
+            RAW查看
+        </el-button>
 
         <div class="json-schema-vue-editor">
             <el-row type="flex" align="middle">
                 <div>
                     <el-select v-model="typeDefModel" placeholder="请选择" @change="handleChange">
-                        <el-option
-                                v-for="item in typeDefList"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
+                        <el-option v-for="item in typeDefList" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                     </el-select>
                 </div>
-                <el-button
-                        type="primary"
-                        size="mini"
-                        style="margin-left: 10px"
-                >提交
-                </el-button
-                >
+                <!-- <el-button type="primary" size="mini" style="margin-left: 10px" @click="submitJson">提交</el-button> -->
 
             </el-row>
-            <schema-json
-                    :data="schemaData"
-                    :is-mock="isMock"
-                    :show-title="showTitle"
-                    :show-default-value="showDefaultValue"
-                    :editor-id="editorId"
-            />
+            <schema-json :data="schemaData" :is-mock="isMock" :show-title="showTitle" :show-default-value="showDefaultValue"
+                :editor-id="editorId" />
             <!-- RAW弹窗 -->
-            <RawDialog
-                    v-if="showRaw"
-                    :visible.sync="rawDialogVisible"
-                    :schema="schemaData"
-            />
-            <StringDialog
-                    :visible.sync="stringDialogVisible"
-                    :init-data="stringModalData"
-            />
-            <DateDialog
-                    :visible.sync="dateDialogVisible"
-                    :init-data="dateModalData"
-            />
-            <IntegerDialog
-                    :visible.sync="integerDialogVisible"
-                    :init-data="integerModalData"
-            />
-            <BooleanDialog
-                    :visible.sync="booleanDialogVisible"
-                    :init-data="booleanModalData"
-            />
-            <ArrayDialog4String
-                    :visible.sync="arrayDialog4StringVisible"
-                    :init-data="arrayModal4StringData"
-            />
-            <MapDialog
-                    :visible.sync="mapDialogVisible"
-                    :init-data="mapModalData"
-            />
-            <EnumDialog
-                    :visible.sync="enumDialogVisible"
-                    :init-data="enumModalData"
-            />
-            
+            <RawDialog v-if="showRaw" :visible.sync="rawDialogVisible" :schema="schemaData" />
+            <StringDialog :visible.sync="stringDialogVisible" :init-data="stringModalData" />
+            <DateDialog :visible.sync="dateDialogVisible" :init-data="dateModalData" />
+            <IntegerDialog :visible.sync="integerDialogVisible" :init-data="integerModalData" />
+            <BooleanDialog :visible.sync="booleanDialogVisible" :init-data="booleanModalData" />
+            <ArrayDialog4String :visible.sync="arrayDialog4StringVisible" :init-data="arrayModal4StringData" />
+            <MapDialog :visible.sync="mapDialogVisible" :init-data="mapModalData" />
+            <EnumDialog :visible.sync="enumDialogVisible" :init-data="enumModalData" />
+
         </div>
     </div>
 </template>
@@ -108,6 +62,7 @@ import {
     handleSchemaRequired,
     cloneObject,
     deleteData,
+    schemaToJson,
 } from './utils'
 
 export default {
@@ -129,10 +84,10 @@ export default {
         EnumDialog
     },
     props: {
-        isMock: {type: Boolean, default: false},
-        showTitle: {type: Boolean, default: false},
-        showDefaultValue: {type: Boolean, default: false},
-        showRaw: {type: Boolean, default: false},
+        isMock: { type: Boolean, default: false },
+        showTitle: { type: Boolean, default: false },
+        showDefaultValue: { type: Boolean, default: false },
+        showRaw: { type: Boolean, default: false },
     },
     data() {
         const visibleObj = {}
@@ -175,21 +130,21 @@ export default {
             },
             rawDialogVisible: false,
             basicDialogVisible: false,
-            basicModalData: {title: '', value: ''},
+            basicModalData: { title: '', value: '' },
             booleanDialogVisible: false,
-            booleanModalData: {title: '', value: ''},
+            booleanModalData: { title: '', value: '' },
             arrayDialog4StringVisible: false,
-            arrayModal4StringData: {title: '', value: ''},
+            arrayModal4StringData: { title: '', value: '' },
             stringDialogVisible: false,
-            stringModalData: {title: '', value: ''},
+            stringModalData: { title: '', value: '' },
             dateDialogVisible: false,
-            dateModalData: {title: '', value: ''},
+            dateModalData: { title: '', value: '' },
             mapDialogVisible: false,
-            mapModalData: {title: '', value: ''},
+            mapModalData: { title: '', value: '' },
             integerDialogVisible: false,
-            integerModalData: {title: '', value: ''},
+            integerModalData: { title: '', value: '' },
             enumDialogVisible: false,
-            enumModalData: {title: '', value: ''},
+            enumModalData: { title: '', value: '' },
 
             settingDialogVisible: visibleObj,
             settingModalData: {},
@@ -218,7 +173,7 @@ export default {
     },
     methods: {
         handleSchemaUpdateEvent(options) {
-            const {eventType, ...opts} = options
+            const { eventType, ...opts } = options
             switch (eventType) {
                 case 'add-field':
                     this.addFieldAction(opts)
@@ -255,17 +210,17 @@ export default {
             this.show = !this.show
         },
         changeCheckBox(e) {
-            this.requireAllAction({required: e, value: this.schemaData})
+            this.requireAllAction({ required: e, value: this.schemaData })
         },
         requireAllAction(opts) {
-            const {value, required} = opts
+            const { value, required } = opts
             const cloneSchema = cloneObject(value)
             handleSchemaRequired(cloneSchema, required)
             this.forceUpdate(cloneSchema)
             this.handleEmitChange(cloneSchema)
         },
         enableRequireAction(opts) {
-            const {prefix, name, required} = opts
+            const { prefix, name, required } = opts
             const prefixCopy = cloneDeep(prefix)
             prefixCopy.pop()
             const parentKeys = [...prefixCopy]
@@ -305,7 +260,7 @@ export default {
          */
         addFieldAction(opts) {
             log(this, opts)
-            const {isChild, name, prefix} = opts
+            const { isChild, name, prefix } = opts
             let parentPrefix = ''
             let requirePrefix = []
             if (isChild) {
@@ -365,7 +320,7 @@ export default {
 
         // 删除字段
         deleteFieldAction(opts) {
-            const {name, prefix} = opts
+            const { name, prefix } = opts
             const position = opts.position
             const curFieldPath = [].concat(prefix, name).join(JSONPATH_JOIN_CHAR)
             if (opts.type && opts.type === 'array') {
@@ -393,7 +348,7 @@ export default {
         // 更新字段名称
         updateFieldNameAction(opts) {
             log(this, opts)
-            const {value, name, prefix} = opts
+            const { value, name, prefix } = opts
             let requirePrefix = []
             const prefixCopy = cloneDeep(prefix)
             prefixCopy.pop()
@@ -430,7 +385,7 @@ export default {
         handleChangeType2(value) {
             this.schemaData.type = value
             const parentDataItem = this.schemaData.description
-                ? {description: this.schemaData.description}
+                ? { description: this.schemaData.description }
                 : {}
             const newParentDataItem = defaultSchema[value]
             const newParentData = Object.assign({}, newParentDataItem, parentDataItem)
@@ -440,14 +395,14 @@ export default {
         // schema 类型变化
         handleChangeType(opts) {
             log(this, opts, 2)
-            const {value, name, prefix} = opts
+            const { value, name, prefix } = opts
             const parentPrefix = [].concat(prefix, name)
             const cloneSchema = cloneDeep(this.schemaData)
             const parentData = get(cloneSchema, parentPrefix)
             const newParentDataItem = defaultSchema[value] // 重置当前 schema 为默认值
             // 保留备注信息
             const parentDataItem = parentData.description
-                ? {description: parentData.description}
+                ? { description: parentData.description }
                 : {}
 
             const newParentData = Object.assign({}, newParentDataItem, parentDataItem)
@@ -458,7 +413,7 @@ export default {
         },
         // title & description 编辑
         handleShowEdit(opts) {
-            const {field, name, prefix, isRoot} = opts
+            const { field, name, prefix, isRoot } = opts
             log(this, 'handleShowEdit', name, prefix)
 
             let parentData
@@ -498,7 +453,7 @@ export default {
                 })
                 return;
             }
-            if(parentData.type === 'string') {
+            if (parentData.type === 'string') {
                 this.stringDialogVisible = true
                 Object.assign(this.stringModalData, {
                     title:
@@ -509,7 +464,7 @@ export default {
                 })
                 return;
             }
-            if(parentData.type === 'date') {
+            if (parentData.type === 'date') {
                 this.dateDialogVisible = true
                 Object.assign(this.dateModalData, {
                     title:
@@ -520,7 +475,7 @@ export default {
                 })
                 return;
             }
-            if(parentData.type === 'long' || parentData.type === 'integer') {
+            if (parentData.type === 'long' || parentData.type === 'integer') {
                 this.integerDialogVisible = true
                 Object.assign(this.integerModalData, {
                     title:
@@ -531,11 +486,11 @@ export default {
                 })
                 return;
             }
-            if(parentData.type === 'map') {
+            if (parentData.type === 'map') {
                 Object.assign(this.mapModalData, {
                     title:
                         field === 'title' ? '标题' : field === 'default' ? `${parentData.label} (对象)` : '描述',
-                    value:  parentData[field],
+                    value: parentData[field],
                     editorId: this.editorId,
                     ...opts,
                 })
@@ -550,13 +505,13 @@ export default {
 
                 return;
             }
-            if(parentData.type === 'enum') {
+            if (parentData.type === 'enum') {
                 console.log('parentData---', parentData)
                 console.log('enumModalData---', this.enumModalData)
                 Object.assign(this.enumModalData, {
                     title:
                         field === 'title' ? '标题' : field === 'default' ? `${parentData.label} (枚举)` : '描述',
-                    value:  parentData[field],
+                    value: parentData[field],
                     enumList: parentData.enumList,
                     editorId: this.editorId,
                     ...opts,
@@ -576,7 +531,7 @@ export default {
         },
         handleSaveShowEdit(opts) {
             console.log("---handleSaveShowEdit----")
-            const {value, field, name, prefix, isRoot} = opts
+            const { value, field, name, prefix, isRoot } = opts
             // console.log(field, value)
             let parentPrefix
             const cloneSchema = cloneDeep(this.schemaData)
@@ -593,7 +548,7 @@ export default {
         },
         // 高级设置
         handleSettingAction(opts) {
-            const {schemaType, name, prefix, isRoot} = opts
+            const { schemaType, name, prefix, isRoot } = opts
             // console.log(schemaType)
             this.settingDialogVisible[schemaType] = true
 
@@ -616,15 +571,15 @@ export default {
         },
         // 高级设置更新 schema
         handleSaveSetting(opts) {
-            const {name, prefix, newData, isRoot} = opts
+            const { name, prefix, newData, isRoot } = opts
             const cloneSchema = cloneDeep(this.schemaData)
             console.log(isRoot)
             if (isRoot) {
-                Object.assign(cloneSchema, {...newData})
+                Object.assign(cloneSchema, { ...newData })
             } else {
                 const parentPrefix = [].concat(prefix, name)
                 const oldData = get(cloneSchema, parentPrefix)
-                set(cloneSchema, parentPrefix, {...oldData, ...newData})
+                set(cloneSchema, parentPrefix, { ...oldData, ...newData })
             }
             this.schemaData = cloneSchema
             this.forceUpdate()
@@ -646,7 +601,8 @@ export default {
         },
         handleEmitChange(schema) {
             // console.log(schema)
-            this.$emit('schema-change', schema)
+            const json = schemaToJson(schema);
+            this.$emit('schema-change', schema, json)
             this.$emit('update:schema', schema)
         },
         handleChange(e) {
@@ -657,20 +613,20 @@ export default {
             }
             if (e == 0) {
                 schema.properties["enumDefs"] = defaultInitSchemaData["enumDefs"]
-            }else if (e == 1) {
+            } else if (e == 1) {
                 schema.properties["structDefs"] = defaultInitSchemaData["structDefs"]
-            }else if (e == 2) {
+            } else if (e == 2) {
                 schema.properties["classificationDefs"] = defaultInitSchemaData["classificationDefs"]
-            }else if (e == 3) {
+            } else if (e == 3) {
                 schema.properties["entityDefs"] = defaultInitSchemaData["entityDefs"]
-            }else if (e == 4) {
+            } else if (e == 4) {
                 schema.properties["relationshipDefs"] = defaultInitSchemaData["relationshipDefs"]
-            }else if (e == 5) {
+            } else if (e == 5) {
                 schema.properties["businessMetadataDefs"] = defaultInitSchemaData["businessMetadataDefs"]
             }
             this.forceUpdate(schema)
-            
-        }
+
+        },
     },
 }
 </script>
@@ -691,9 +647,13 @@ export default {
     width: 100%;
     font-size: 13px;
 }
+
 .ellipsis {
-    text-overflow :ellipsis; /*让截断的文字显示为点点。还有一个值是clip意截断不显示点点*/
-    white-space :nowrap; /*让文字不换行*/
-    overflow : hidden; /*超出要隐藏*/
+    text-overflow: ellipsis;
+    /*让截断的文字显示为点点。还有一个值是clip意截断不显示点点*/
+    white-space: nowrap;
+    /*让文字不换行*/
+    overflow: hidden;
+    /*超出要隐藏*/
 }
 </style>

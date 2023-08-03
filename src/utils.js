@@ -1474,3 +1474,27 @@ export const getValidFormVal = formData => {
 
     return obj;
 };
+
+
+export const schemaToJson = data => {
+    if (data.type === 'object') {
+        let obj = {}
+        let properties = data.properties
+        for (let key in properties) {
+            const value = schemaToJson(properties[key]);
+            if(value) {
+                obj[key] = value
+            }
+        }
+        return obj
+    } else if (data.type === 'array') {
+        let arr = []
+        data.items && data.items.forEach(item => {
+            let obj = schemaToJson(item)
+            arr.push(obj)
+        })
+        return arr
+    } else {
+        return data.default
+    }
+}
