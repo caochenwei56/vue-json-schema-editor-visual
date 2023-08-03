@@ -265,6 +265,7 @@ export const defaultInitSchemaData = {
         label: "枚举类型",
         property: 'enumDef',
         subType: "object",
+        addFlg: true,
         items: [
             {
                 type: 'object',
