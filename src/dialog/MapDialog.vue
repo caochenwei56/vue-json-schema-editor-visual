@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog :title="initData.title" :visible.sync="dialogVisible" width="30%" @close="handleDialogClose">
+        <el-dialog :title="initData.title" :visible.sync="visible" width="30%" @close="handleDialogClose">
             <div>
                 <el-form ref="form" :model="formData" label-width="80px">
                     <el-form-item label="数组长度" style="text-align: left">
