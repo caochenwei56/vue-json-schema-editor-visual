@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog :title="initData.title" :visible.sync="visible" width="30%" @close="handleDialogClose">
+        <el-dialog :title="initData.title" :visible.sync="dialogVisible" width="30%" @close="handleDialogClose">
             <div>
                 <el-form ref="form" :model="formData" label-width="80px">
                     <el-form-item label="数组长度" style="text-align: left">
@@ -55,19 +55,18 @@ export default {
 
     watch: {
         initData: {
-            handler() {
-                console.log("---initData---")
-                this.data = this.initData.value
+            handler(newValue) {
+                console.log("---initData---", newValue)
                 console.log(JSON.stringify(this.data, null, 4))
                 let length = 0;
-                if(this.initData.value) {
-                    length = Object.keys(this.initData.value).length
+                if(newValue.value) {
+                    length = Object.keys(newValue.value).length
                 }
-                console.log('66--', this.initData.value, length)
-                if (this.initData.value && length > 0) {
+                console.log('66--', newValue.value, length)
+                if (newValue.value && length > 0) {
                     let arr = []
-                    Object.keys(this.initData.value).forEach(key => {
-                        arr.push({'key': key, 'value': this.initData.value[key]})
+                    Object.keys(newValue.value).forEach(key => {
+                        arr.push({'key': key, 'value': newValue.value[key]})
                     })
                     this.formData.data = arr
                     this.formData.length = length
@@ -87,6 +86,10 @@ export default {
     methods: {
         close() {
             this.$emit('update:visible', false)
+            this.formData = {
+                length: 1,
+                data: [{'key': '', 'value': ''}]
+            }
         },
         handleOk() {
             let obj = {}

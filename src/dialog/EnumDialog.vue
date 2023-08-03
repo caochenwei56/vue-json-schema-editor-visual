@@ -69,15 +69,15 @@
                         })
                     })
                 }
-                if(newVal && newVal.default) {
-                    this.formData.default = newVal.default;
+                if(newVal && newVal.value) {
+                    this.formData.default = newVal.value;
                 }
             }
         }
     },
     methods: {
       onOpen() {
-        Object.assign(this.formData, { default: this.initData.default })
+        Object.assign(this.formData, { default: this.initData.value })
       },
       onClose() {
         this.$refs['elForm'].resetFields()

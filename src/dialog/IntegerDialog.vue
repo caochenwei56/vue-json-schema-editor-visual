@@ -59,7 +59,7 @@
     },
     methods: {
       onOpen() {
-        Object.assign(this.formData, { default: this.initData.default })
+        Object.assign(this.formData, { default: this.initData.value })
       },
       onClose() {
         this.$refs['elForm'].resetFields()

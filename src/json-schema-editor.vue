@@ -492,7 +492,7 @@ export default {
                 Object.assign(this.booleanModalData, {
                     title:
                         field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
-                    default: parentData[field],
+                    value: parentData[field],
                     editorId: this.editorId,
                     ...opts,
                 })
@@ -503,7 +503,7 @@ export default {
                 Object.assign(this.stringModalData, {
                     title:
                         field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
-                    default: parentData[field],
+                    value: parentData[field],
                     editorId: this.editorId,
                     ...opts,
                 })
@@ -514,7 +514,7 @@ export default {
                 Object.assign(this.dateModalData, {
                     title:
                         field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
-                    default: parentData[field],
+                    value: parentData[field],
                     editorId: this.editorId,
                     ...opts,
                 })
@@ -525,26 +525,29 @@ export default {
                 Object.assign(this.integerModalData, {
                     title:
                         field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
-                    default: parentData[field],
+                    value: parentData[field],
                     editorId: this.editorId,
                     ...opts,
                 })
                 return;
             }
             if(parentData.type === 'map') {
-                this.mapDialogVisible = true
                 Object.assign(this.mapModalData, {
                     title:
                         field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
-                    default: parentData[field],
+                    value:  parentData[field],
                     editorId: this.editorId,
                     ...opts,
                 })
+                console.log(JSON.stringify(this.mapModalData, null, 2))
                 let temp = cloneDeep(this.mapModalData)
                 this.mapModalData = {}
                 this.$nextTick(() => {
                     this.mapModalData = temp
+                    console.log(JSON.stringify(this.mapModalData, null, 2))
+                    this.mapDialogVisible = true
                 })
+
                 return;
             }
             if(parentData.type === 'enum') {
@@ -553,7 +556,7 @@ export default {
                 Object.assign(this.enumModalData, {
                     title:
                         field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
-                    default: parentData.default,
+                    value:  parentData[field],
                     enumList: parentData.enumList,
                     editorId: this.editorId,
                     ...opts,
