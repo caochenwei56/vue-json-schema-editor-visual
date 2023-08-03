@@ -33,6 +33,11 @@ export const defaultInitSchemaData = {
                 type: 'object',
                 title: 'title',
                 properties: {
+                    guid: {
+                        type: 'string',
+                        title: "title",
+                        label: "唯一标识",
+                    },
                     createdBy: {
                         type: 'string',
                         title: "title",
@@ -271,6 +276,11 @@ export const defaultInitSchemaData = {
                 type: 'object',
                 title: 'title',
                 properties: {
+                    guid: {
+                        type: 'string',
+                        title: "title",
+                        label: "唯一标识",
+                    },
                     createdBy: {
                         type: 'string',
                         title: "title",
@@ -372,6 +382,11 @@ export const defaultInitSchemaData = {
             type: 'object',
             title: 'title',
             properties: {
+                guid: {
+                    type: 'string',
+                    title: "title",
+                    label: "唯一标识",
+                },
                 createdBy: {
                     type: 'string',
                     title: "title",
@@ -584,6 +599,11 @@ export const defaultInitSchemaData = {
                         property: 'subType',
                         subType: "string",
                     },
+                    guid: {
+                        type: 'string',
+                        title: "title",
+                        label: "唯一标识",
+                    },
                     createdBy: {
                         type: 'string',
                         title: "title",
@@ -779,6 +799,11 @@ export const defaultInitSchemaData = {
                 type: 'object',
                 title: 'title',
                 properties: {
+                    guid: {
+                        type: 'string',
+                        title: "title",
+                        label: "唯一标识",
+                    },
                     createdBy: {
                         type: 'string',
                         title: "title",
@@ -1068,6 +1093,11 @@ export const defaultInitSchemaData = {
             type: 'object',
             title: 'title',
             properties: {
+                guid: {
+                    type: 'string',
+                    title: "title",
+                    label: "唯一标识",
+                },
                 createdBy: {
                     type: 'string',
                     title: "title",
