@@ -32,7 +32,6 @@
 
             </el-row>
             <schema-json
-                    v-if="typeDefModel"
                     :data="schemaData"
                     :is-mock="isMock"
                     :show-title="showTitle"
@@ -606,7 +605,7 @@ export default {
             }else if (e == 5) {
                 schema.properties["businessMetadataDefs"] = defaultInitSchemaData["businessMetadataDefs"]
             }
-            this.schemaData = schema
+            this.forceUpdate(schema)
             
         }
     },
