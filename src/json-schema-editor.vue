@@ -44,11 +44,6 @@
                     :visible.sync="rawDialogVisible"
                     :schema="schemaData"
             />
-            <!-- 高级设置弹窗 -->
-            <BasicDialog
-                    :visible.sync="basicDialogVisible"
-                    :init-data="basicModalData"
-            />
             <StringDialog
                     :visible.sync="stringDialogVisible"
                     :init-data="stringModalData"
@@ -57,30 +52,27 @@
                     :visible.sync="dateDialogVisible"
                     :init-data="dateModalData"
             />
-            <NumberDialog
-                    :visible.sync="settingDialogVisible.number"
-                    :init-data="settingModalData"
+            <IntegerDialog
+                    :visible.sync="integerDialogVisible"
+                    :init-data="integerModalData"
             />
-            <NumberDialog
-                    :visible.sync="settingDialogVisible.integer"
-                    :init-data="settingModalData"
-            />
-            <!--      <ArrayDialog-->
-            <!--        :visible.sync="arrayDialogVisible"-->
-            <!--        :init-data="arrayModalData"-->
-            <!--      />-->
             <BooleanDialog
                     :visible.sync="booleanDialogVisible"
                     :init-data="booleanModalData"
-            />
-            <ObjectDialog
-                    :visible.sync="settingDialogVisible.object"
-                    :init-data="settingModalData"
             />
             <ArrayDialog4String
                     :visible.sync="arrayDialog4StringVisible"
                     :init-data="arrayModal4StringData"
             />
+            <MapDialog
+                    :visible.sync="mapDialogVisible"
+                    :init-data="mapModalData"
+            />
+            <EnumDialog
+                    :visible.sync="enumDialogVisible"
+                    :init-data="enumModalData"
+            />
+            
         </div>
     </div>
 </template>
@@ -97,11 +89,14 @@ import {
     StringDialog,
     DateDialog,
     NumberDialog,
+    IntegerDialog,
     ArrayDialog,
     BooleanDialog,
     ObjectDialog,
     RawDialog,
-    ArrayDialog4String
+    ArrayDialog4String,
+    MapDialog,
+    EnumDialog,
 } from './dialog'
 import {
     SCHEMA_TYPE,
@@ -125,10 +120,13 @@ export default {
         StringDialog,
         DateDialog,
         NumberDialog,
+        IntegerDialog,
         ArrayDialog,
         BooleanDialog,
         ObjectDialog,
         RawDialog,
+        MapDialog,
+        EnumDialog
     },
     props: {
         isMock: {type: Boolean, default: false},
@@ -186,6 +184,12 @@ export default {
             stringModalData: {title: '', value: ''},
             dateDialogVisible: false,
             dateModalData: {title: '', value: ''},
+            mapDialogVisible: false,
+            mapModalData: {title: '', value: ''},
+            integerDialogVisible: false,
+            integerModalData: {title: '', value: ''},
+            enumDialogVisible: false,
+            enumModalData: {title: '', value: ''},
 
             settingDialogVisible: visibleObj,
             settingModalData: {},
@@ -516,6 +520,55 @@ export default {
                 })
                 return;
             }
+            if(parentData.type === 'long' || parentData.type === 'integer') {
+                this.integerDialogVisible = true
+                Object.assign(this.integerModalData, {
+                    title:
+                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                    default: parentData[field],
+                    editorId: this.editorId,
+                    ...opts,
+                })
+                return;
+            }
+            if(parentData.type === 'map') {
+                this.mapDialogVisible = true
+                Object.assign(this.mapModalData, {
+                    title:
+                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                    default: parentData[field],
+                    editorId: this.editorId,
+                    ...opts,
+                })
+                let temp = cloneDeep(this.mapModalData)
+                this.mapModalData = {}
+                this.$nextTick(() => {
+                    this.mapModalData = temp
+                })
+                return;
+            }
+            if(parentData.type === 'enum') {
+                console.log('parentData---', parentData)
+                console.log('enumModalData---', this.enumModalData)
+                Object.assign(this.enumModalData, {
+                    title:
+                        field === 'title' ? '标题' : field === 'default' ? '默认值' : '描述',
+                    default: parentData.default,
+                    enumList: parentData.enumList,
+                    editorId: this.editorId,
+                    ...opts,
+                })
+                let temp = cloneDeep(this.enumModalData)
+                this.enumModalData = {}
+                this.$nextTick(() => {
+                    this.enumModalData = temp
+                    console.log('enumModalData---', this.enumModalData)
+                })
+                this.enumDialogVisible = true
+
+                return;
+            }
+            
 
             if (parentData.subType === '') {
                 this.booleanDialogVisible = true

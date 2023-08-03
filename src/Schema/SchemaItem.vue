@@ -27,14 +27,14 @@
               @change="handleNameChange"
             />
           </el-col>
-          <el-col :span="2" style="text-align: center">
+          <!-- <el-col :span="2" style="text-align: center">
             <el-tooltip placement="top" content="是否必须">
               <el-checkbox
                 :checked="(data.required && data.required.indexOf(name) != -1) || false"
                 @change="handleEnableRequire"
               ></el-checkbox>
             </el-tooltip>
-          </el-col>
+          </el-col> -->
         </el-row>
       </el-col>
 

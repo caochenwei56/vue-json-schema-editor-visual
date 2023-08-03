@@ -25,11 +25,11 @@
               <el-col :span="20">
                 <el-input disabled :value="data.label" size="small" />
               </el-col>
-              <el-col :span="2" style="text-align: center">
+              <!-- <el-col :span="2" style="text-align: center">
                 <el-tooltip placement="top" content="全选">
                   <el-checkbox disabled />
                 </el-tooltip>
-              </el-col>
+              </el-col> -->
             </el-row>
           </el-col>
 
@@ -119,11 +119,11 @@
               <el-col :span="20">
                 <el-input disabled :value="data.label" size="small" />
               </el-col>
-              <el-col :span="2" style="text-align: center">
+              <!-- <el-col :span="2" style="text-align: center">
                 <el-tooltip placement="top" content="全选">
                   <el-checkbox disabled />
                 </el-tooltip>
-              </el-col>
+              </el-col> -->
             </el-row>
           </el-col>
 

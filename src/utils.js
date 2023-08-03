@@ -41,7 +41,7 @@ export const defaultInitSchemaData = {
                     updatedBy: {
                         type: 'string',
                         title: "title",
-                        label: "创建人",
+                        label: "更新人",
                     },
                     createTime: {
                         type: 'date',
@@ -79,7 +79,7 @@ export const defaultInitSchemaData = {
                         label: "服务类型",
                     },
                     options: {
-                        type: 'Map',
+                        type: 'map',
                         title: "title",
                         label: "选项",
                     },
@@ -279,7 +279,7 @@ export const defaultInitSchemaData = {
                     updatedBy: {
                         type: 'string',
                         title: "title",
-                        label: "创建人",
+                        label: "更新人",
                     },
                     createTime: {
                         type: 'date',
@@ -317,7 +317,7 @@ export const defaultInitSchemaData = {
                         label: "服务类型",
                     },
                     options: {
-                        type: 'Map',
+                        type: 'map',
                         title: "title",
                         label: "选项",
                     },
@@ -380,7 +380,7 @@ export const defaultInitSchemaData = {
                 updatedBy: {
                     type: 'string',
                     title: "title",
-                    label: "创建人",
+                    label: "更新人",
                 },
                 createTime: {
                     type: 'date',
@@ -418,7 +418,7 @@ export const defaultInitSchemaData = {
                     label: "服务类型",
                 },
                 options: {
-                    type: 'Map',
+                    type: 'map',
                     title: "title",
                     label: "选项",
                 },
@@ -592,7 +592,7 @@ export const defaultInitSchemaData = {
                     updatedBy: {
                         type: 'string',
                         title: "title",
-                        label: "创建人",
+                        label: "更新人",
                     },
                     createTime: {
                         type: 'date',
@@ -630,7 +630,7 @@ export const defaultInitSchemaData = {
                         label: "服务类型",
                     },
                     options: {
-                        type: 'Map',
+                        type: 'map',
                         title: "title",
                         label: "选项",
                     },
@@ -787,7 +787,7 @@ export const defaultInitSchemaData = {
                     updatedBy: {
                         type: 'string',
                         title: "title",
-                        label: "创建人",
+                        label: "更新人",
                     },
                     createTime: {
                         type: 'date',
@@ -825,7 +825,7 @@ export const defaultInitSchemaData = {
                         label: "服务类型",
                     },
                     options: {
-                        type: 'Map',
+                        type: 'map',
                         title: "title",
                         label: "选项",
                     },
@@ -1076,7 +1076,7 @@ export const defaultInitSchemaData = {
                 updatedBy: {
                     type: 'string',
                     title: "title",
-                    label: "创建人",
+                    label: "更新人",
                 },
                 createTime: {
                     type: 'date',
@@ -1114,7 +1114,7 @@ export const defaultInitSchemaData = {
                     label: "服务类型",
                 },
                 options: {
-                    type: 'Map',
+                    type: 'map',
                     title: "title",
                     label: "选项",
                 },
