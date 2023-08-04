@@ -96,7 +96,7 @@ export default {
         })
         const initSchema = this.schema || defaultInitSchemaData
         return {
-            typeDefModel: [],
+            typeDefModel: 3,
             typeDefList: [
                 {
                     value: 0,
@@ -157,6 +157,9 @@ export default {
             },
             deep: true,
         },
+    },
+    created() {
+        this.handleChange(this.typeDefModel)
     },
     mounted() {
         log(this, this.schemaData)
