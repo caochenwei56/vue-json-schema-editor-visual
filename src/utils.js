@@ -67,6 +67,7 @@ export const defaultInitSchemaData = {
                         type: 'string',
                         title: "title",
                         label: "名称",
+                        required: true,
                     },
                     description: {
                         type: 'string',
@@ -311,6 +312,7 @@ export const defaultInitSchemaData = {
                         type: 'string',
                         title: "title",
                         label: "名称",
+                        required: true,
                     },
                     description: {
                         type: 'string',
@@ -354,16 +356,19 @@ export const defaultInitSchemaData = {
                                         type: 'string',
                                         title: "title",
                                         label: "值",
+                                        required: true,
                                     },
                                     description: {
                                         type: 'string',
                                         title: "title",
                                         label: "描述",
+                                        required: true,
                                     },
                                     ordinal: {
                                         type: 'integer',
                                         title: "title",
                                         label: "序数",
+                                        required: true,
                                     },
                                 }
                             }
@@ -419,6 +424,7 @@ export const defaultInitSchemaData = {
                     type: 'string',
                     title: "title",
                     label: "名称",
+                    required: true,
                 },
                 description: {
                     type: 'string',
@@ -638,6 +644,7 @@ export const defaultInitSchemaData = {
                         type: 'string',
                         title: "title",
                         label: "名称",
+                        required: true,
                     },
                     description: {
                         type: 'string',
@@ -676,11 +683,13 @@ export const defaultInitSchemaData = {
                                         type: 'string',
                                         title: "title",
                                         label: "名称",
+                                        required: true,
                                     },
                                     typeName: {
                                         type: 'string',
                                         title: "title",
                                         label: "类型名称",
+                                        required: true,
                                     },
                                     isOptional: {
                                         type: 'boolean',
@@ -838,6 +847,7 @@ export const defaultInitSchemaData = {
                         type: 'string',
                         title: "title",
                         label: "名称",
+                        required: true,
                     },
                     description: {
                         type: 'string',
@@ -991,6 +1001,7 @@ export const defaultInitSchemaData = {
                         title: "title",
                         label: "关系类型",
                         enumList: [ 'ASSOCIATION', 'AGGREGATION', 'COMPOSITION'],
+                        required: true,
 
                     },
                     relationshipLabel: {
@@ -1014,27 +1025,32 @@ export const defaultInitSchemaData = {
                                 type: 'string',
                                 title: "title",
                                 label: "类型",
+                                required: true,
                             },
                             name: {
                                 type: 'string',
                                 title: "title",
                                 label: "名称",
+                                required: true,
                             },
                             isContainer: {
                                 type: 'boolean',
                                 title: "title",
                                 label: "是否为容器",
+                                required: true,
                             },
                             cardinality: {
                                 type: 'enum',
                                 title: "title",
                                 label: "基数",
                                 enumList: ['SINGLE', 'LIST', 'SET'],
+                                required: true,
                             },
                             isLegacyAttribute: {
                                 type: 'boolean',
                                 title: "title",
                                 label: "是否遗留属性",
+                                required: true,
                             },
                             description: {
                                 type: 'string',
@@ -1053,27 +1069,32 @@ export const defaultInitSchemaData = {
                                 type: 'string',
                                 title: "title",
                                 label: "类型",
+                                required: true,
                             },
                             name: {
                                 type: 'string',
                                 title: "title",
                                 label: "名称",
+                                required: true,
                             },
                             isContainer: {
                                 type: 'boolean',
                                 title: "title",
                                 label: "是否为容器",
+                                required: true,
                             },
                             cardinality: {
                                 type: 'enum',
                                 title: "title",
                                 label: "基数",
                                 enumList: ['SINGLE', 'LIST', 'SET'],
+                                required: true,
                             },
                             isLegacyAttribute: {
                                 type: 'boolean',
                                 title: "title",
                                 label: "是否遗留属性",
+                                required: true,
                             },
                             description: {
                                 type: 'string',
@@ -1134,6 +1155,7 @@ export const defaultInitSchemaData = {
                     type: 'string',
                     title: "title",
                     label: "名称",
+                    required: true,
                 },
                 description: {
                     type: 'string',
@@ -1172,11 +1194,13 @@ export const defaultInitSchemaData = {
                                     type: 'string',
                                     title: "title",
                                     label: "名称",
+                                    required: true,
                                 },
                                 typeName: {
                                     type: 'string',
                                     title: "title",
                                     label: "类型名称",
+                                    required: true,
                                 },
                                 isOptional: {
                                     type: 'boolean',

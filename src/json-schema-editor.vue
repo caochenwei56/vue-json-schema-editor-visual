@@ -632,6 +632,25 @@ export default {
             if (e.indexOf(5) != -1) {
                 schema.properties["businessMetadataDefs"] = defaultInitSchemaData["businessMetadataDefs"]
             }
+
+            // if (e.indexOf(0) == -1) {
+            //     schema.properties["enumDefs"] = null
+            // }
+            // if (e.indexOf(1) != -1) {
+            //     schema.properties["structDefs"] = null
+            // }
+            // if (e.indexOf(2) == -1) {
+            //     schema.properties["classificationDefs"] = null
+            // }
+            // if (e.indexOf(3) == -1) {
+            //     schema.properties["entityDefs"] = null
+            // }
+            // if (e.indexOf(4) == -1) {
+            //     schema.properties["relationshipDefs"] = null
+            // }
+            // if (e.indexOf(5) == -1) {
+            //     schema.properties["businessMetadataDefs"] = null
+            // }
             this.forceUpdate(schema)
 
         },
