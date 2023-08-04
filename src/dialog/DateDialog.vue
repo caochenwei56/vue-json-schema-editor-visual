@@ -30,7 +30,6 @@
                 <el-date-picker
                     v-model="formData.default"
                     type="datetime"
-                    value-format="yyyy-MM-dd HH:mm:ss"
                     clearable
                     :style="{ width: '100%' }"
                     placeholder="选择日期时间">
