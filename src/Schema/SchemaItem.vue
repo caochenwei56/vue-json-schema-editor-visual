@@ -53,10 +53,11 @@
 
 
       <el-col :span="1" class="col-item col-item-setting">
-
         <span v-if="data.properties[name].deleteFlg" class="delete-item" :class="{ hidden: value.disabled }"
           @click="handleAction({ eventType: 'delete-field' })">
-          <i class="el-icon-close close"></i>
+          <el-tooltip placement="top" content="删除">
+            <i class="el-icon-close close"></i>
+          </el-tooltip>
         </span>
         <DropPlus v-if="value.type === 'object'" :prefix="prefix" :name="name" @add-field="handleAction" />
         <span v-if="data.properties[name].addFlg && value.type !== 'object'"

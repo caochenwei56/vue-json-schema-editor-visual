@@ -188,7 +188,9 @@
               :class="{ hidden: data.disabled }"
               @click="handleAction({ eventType: 'delete-field',position: index,type:data.type})"
             >
+            <el-tooltip placement="top" content="删除">
               <i class="el-icon-close close"></i>
+            </el-tooltip>
             </span>
           </el-col>
         </el-row>
