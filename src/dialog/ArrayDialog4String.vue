@@ -4,12 +4,12 @@
             <div>
                 <el-form ref="form" :model="formData" label-width="80px">
                     <el-form-item label="数组长度" style="text-align: left">
-                        <el-input-number v-model="formData.length" @change="handleChange4length" :min="1" :max="10"
-                                         label="数组长度"></el-input-number>
+                        <el-input-number v-model="formData.length" @change="handleChange4length" :min="1" :max="10" label="数组长度">
+                        </el-input-number>
                     </el-form-item>
                     <div style="height: 200px;overflow-y: auto">
                         <div v-for="(item,index) in formData.data" :key="index">
-                            <el-form-item style="text-align:left" :label="index +''">
+                            <el-form-item style="text-align:left">
                                 <el-input :key="index+'input'" style="width: 300px" v-model="formData.data[index]"></el-input>
                                 <i @click="handleDelete(index)" style="margin-left: 16px" class="el-icon-delete"></i>
                             </el-form-item>

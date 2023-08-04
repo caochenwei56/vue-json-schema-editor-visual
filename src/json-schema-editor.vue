@@ -7,7 +7,7 @@
         <div class="json-schema-vue-editor">
             <el-row type="flex" align="middle">
                 <div>
-                    <el-select v-model="typeDefModel" placeholder="请选择" @change="handleChange">
+                    <el-select v-model="typeDefModel" multiple placeholder="请选择" @change="handleChange">
                         <el-option v-for="item in typeDefList" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                     </el-select>
@@ -96,7 +96,7 @@ export default {
         })
         const initSchema = this.schema || defaultInitSchemaData
         return {
-            typeDefModel: 3,
+            typeDefModel: [3],
             typeDefList: [
                 {
                     value: 0,
@@ -614,17 +614,22 @@ export default {
                 title: "title",
                 properties: {}
             }
-            if (e == 0) {
+            if (e.indexOf(0) != -1) {
                 schema.properties["enumDefs"] = defaultInitSchemaData["enumDefs"]
-            } else if (e == 1) {
+            }
+            if (e.indexOf(1) != -1) {
                 schema.properties["structDefs"] = defaultInitSchemaData["structDefs"]
-            } else if (e == 2) {
+            }
+            if (e.indexOf(2) != -1) {
                 schema.properties["classificationDefs"] = defaultInitSchemaData["classificationDefs"]
-            } else if (e == 3) {
+            }
+            if (e.indexOf(3) != -1) {
                 schema.properties["entityDefs"] = defaultInitSchemaData["entityDefs"]
-            } else if (e == 4) {
+            }
+            if (e.indexOf(4) != -1) {
                 schema.properties["relationshipDefs"] = defaultInitSchemaData["relationshipDefs"]
-            } else if (e == 5) {
+            }
+            if (e.indexOf(5) != -1) {
                 schema.properties["businessMetadataDefs"] = defaultInitSchemaData["businessMetadataDefs"]
             }
             this.forceUpdate(schema)
