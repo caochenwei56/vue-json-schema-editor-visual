@@ -7,6 +7,7 @@
       v-on="$listeners"
       @open="onOpen"
       @close="onClose"
+      :append-to-body="true"
     >
       <el-row :gutter="15">
         <el-form

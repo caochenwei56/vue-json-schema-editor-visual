@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :title="initData.title" :visible.sync="visible" width="30%">
+    <el-dialog :title="initData.title" :visible.sync="visible" width="30%" :append-to-body="true">
       <el-input
         v-model="data"
         type="textarea"

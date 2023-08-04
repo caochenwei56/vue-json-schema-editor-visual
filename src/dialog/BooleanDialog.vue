@@ -7,6 +7,7 @@
     :visible.sync="visible"
     @open="onOpen"
     @close="onClose"
+    :append-to-body="true"
   >
     <el-form ref="elForm" :model="formData" size="small" label-width="100px">
       <el-form-item label="默认值：" prop="default">

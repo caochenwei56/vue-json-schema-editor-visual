@@ -6,6 +6,7 @@
     v-on="$listeners"
     @open="onOpen"
     @close="onClose"
+    :append-to-body="true"
   >
     <el-form ref="elForm" :model="formData" size="small" label-width="100px">
       <el-form-item label-width="0" prop="notEmpty" style="text-align: center">

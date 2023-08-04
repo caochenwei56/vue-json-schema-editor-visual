@@ -7,6 +7,7 @@
       v-on="$listeners"
       @open="onOpen"
       @close="onClose"
+      :append-to-body="true"
     >
       <div class="sourcecode">
         <s-json-editor :value="schema"></s-json-editor>
