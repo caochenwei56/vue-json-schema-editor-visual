@@ -250,7 +250,7 @@ export const defaultInitSchemaData = {
                                         label: "关系类型名称",
                                     },
                                     isLegacyAttribute: {
-                                        type: 'string',
+                                        type: 'boolean',
                                         title: "title",
                                         label: "是否遗留属性",
                                     },
@@ -464,7 +464,7 @@ export const defaultInitSchemaData = {
                                     label: "类型名称",
                                 },
                                 isOptional: {
-                                    type: 'string',
+                                    type: 'boolean',
                                     title: "title",
                                     label: "是否可选",
                                 },
@@ -683,7 +683,7 @@ export const defaultInitSchemaData = {
                                         label: "类型名称",
                                     },
                                     isOptional: {
-                                        type: 'string',
+                                        type: 'boolean',
                                         title: "title",
                                         label: "是否可选",
                                     },
@@ -884,7 +884,7 @@ export const defaultInitSchemaData = {
                                         label: "类型名称",
                                     },
                                     isOptional: {
-                                        type: 'string',
+                                        type: 'boolean',
                                         title: "title",
                                         label: "是否可选",
                                     },

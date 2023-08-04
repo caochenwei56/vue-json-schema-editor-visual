@@ -87,7 +87,7 @@ export default {
                                                         label: "关系类型名称",
                                                     },
                                                     isLegacyAttribute: {
-                                                        type: 'string',
+                                                        type: 'boolean',
                                                         title: "title",
                                                         label: "是否遗留属性",
                                                     },
