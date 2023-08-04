@@ -112,7 +112,7 @@ export const defaultInitSchemaData = {
                                         label: "类型名称",
                                     },
                                     isOptional: {
-                                        type: 'string',
+                                        type: 'boolean',
                                         title: "title",
                                         label: "是否可选",
                                     },
@@ -1179,7 +1179,7 @@ export const defaultInitSchemaData = {
                                     label: "类型名称",
                                 },
                                 isOptional: {
-                                    type: 'string',
+                                    type: 'boolean',
                                     title: "title",
                                     label: "是否可选",
                                 },
